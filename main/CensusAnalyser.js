@@ -13,6 +13,6 @@ module.exports = function (csvFile, callback) {
     })
     .on("end", () => {
       console.log("Total count: " + count);
-      return callback(null, count);
+      return callback(count);
     });
 };
