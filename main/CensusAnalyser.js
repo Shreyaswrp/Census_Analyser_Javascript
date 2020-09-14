@@ -5,7 +5,6 @@ module.exports = function (csvFile, callback) {
   const csv = require("csv-parser");
   const fs = require("fs");
   let count = 0;
-
   fs.createReadStream(csvFile)
     .pipe(csv())
     .on("data", (row) => {
