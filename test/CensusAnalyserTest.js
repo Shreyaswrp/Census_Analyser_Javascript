@@ -88,3 +88,12 @@ describe("It loads US State Census Data", function () {
     });
   });
 });
+
+describe("US State Census Sorting", function () {
+  it("It sorts the US state population data in JSON Format", function () {
+    CensusAnalyserController.GetSortOrderByPopulation(US_STATE_CENSUS_FILE, function (data) {
+        let result =data[data.length-1].State
+        assert.equal(result, "California");
+    });
+  });
+});
