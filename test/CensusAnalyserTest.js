@@ -2,6 +2,7 @@ const assert = require("chai").assert;
 const CensusAnalyserController = require("../main/CensusAnalyser");
 const INDIA_STATE_CENSUS_FILE = "./resources/IndiaStateCensusData.csv";
 const INDIA_STATE_CODE_FILE = "./resources/IndiaStateCode.csv";
+const US_STATE_CENSUS_FILE = "./resources/USCensusData.csv";
 
 describe("It loads Indian State Census Data", function () {
   it("It loads the number of records in Indian census file", function () {
@@ -76,6 +77,14 @@ describe("Indian State Census Sorting", function () {
     CensusAnalyserController.GetSortOrderByArea(INDIA_STATE_CENSUS_FILE, function (data) {
         let result =data[data.length-1].State
         assert.equal(result, "Rajasthan");
+    });
+  });
+});
+
+describe("It loads US State Census Data", function () {
+  it("It loads the number of records in US census file", function () {
+    CensusAnalyserController.loadCSVFileData(US_STATE_CENSUS_FILE, function ( data) {
+      assert.equal(data, 51);
     });
   });
 });
