@@ -5,7 +5,7 @@ const INDIA_STATE_CODE_FILE = "./resources/IndiaStateCode.csv";
 
 describe("It loads Indian State Census Data", function () {
   it("It loads the number of records in Indian census file", function () {
-    CensusAnalyserController(INDIA_STATE_CENSUS_FILE, function ( data) {
+    CensusAnalyserController.loadCSVFileData(INDIA_STATE_CENSUS_FILE, function ( data) {
       assert.equal(data, 29);
     });
   });
@@ -13,7 +13,7 @@ describe("It loads Indian State Census Data", function () {
 
 describe("loadIndianStateCensusData", function () {
   it("it loads Indian census data", function () {
-    CensusAnalyserController(INDIA_STATE_CENSUS_FILE, function (data) {
+    CensusAnalyserController.loadCSVFileData(INDIA_STATE_CENSUS_FILE, function (data) {
       assert.notEqual(data, 30);
     });
   });
@@ -21,7 +21,7 @@ describe("loadIndianStateCensusData", function () {
 
 describe("It loads Indian State Code", function () {
   it("It loads total records of Indian state dode data", function () {
-    CensusAnalyserController(INDIA_STATE_CODE_FILE, function (data) {
+    CensusAnalyserController.loadCSVFileData(INDIA_STATE_CODE_FILE, function (data) {
       assert.equal(data, 37);
     });
   });
@@ -29,8 +29,17 @@ describe("It loads Indian State Code", function () {
 
 describe("It loads Indian State Code Data", function () {
   it("It returns total records of Indian code data", function () {
-    CensusAnalyserController(INDIA_STATE_CODE_FILE, function (data) {
+    CensusAnalyserController.loadCSVFileData(INDIA_STATE_CODE_FILE, function (data) {
       assert.notEqual(data, 40);
+    });
+  });
+});
+
+describe("IndianStateCensusSorting", function () {
+  it("It sorts the state data in alphabetic order", function () {
+    CensusAnalyserController.GetSortOrderByState(INDIA_STATE_CENSUS_FILE, function (data) {
+        let result =data[data.length-1].State
+        assert.equal(result, "West Bengal");
     });
   });
 });

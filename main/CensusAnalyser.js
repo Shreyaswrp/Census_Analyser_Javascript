@@ -1,11 +1,13 @@
 var msg = "Welcome to census analyser program";
 console.log(msg);
 
-module.exports = function (csvFile, callback) {
-  const csv = require("csv-parser");
-  const fs = require("fs");
-  let count = 0;
-  fs.createReadStream(csvFile)
+const csv = require("csv-parser");
+const fs = require("fs");
+const csvToJson = require("csvtojson");
+
+function loadCSVFileData(csvFile, callback){
+    let count = 0;
+    fs.createReadStream(csvFile)
     .pipe(csv())
     .on("data", (row) => {
       count += 1;
@@ -14,4 +16,19 @@ module.exports = function (csvFile, callback) {
       console.log("Total count: " + count);
       return callback(count);
     });
+}
+
+function GetSortOrderByState(csvFile,callback) { 
+      csvToJson()
+      .fromFile(csvFile)
+      .then((stateData) => {
+      stateData.sort((a, b) => a.State - b.State)
+      return callback(stateData);
+      });
+} 
+
+module.exports = {
+  loadCSVFileData,GetSortOrderByState
 };
+ 
+
