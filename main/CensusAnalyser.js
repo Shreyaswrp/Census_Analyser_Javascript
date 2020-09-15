@@ -5,8 +5,8 @@ const csvToJson = require("csvtojson");
 console.log ("Welcome to census analyser program");
 
 function loadCSVFileData(csvFile, callback) {
-  let count = 0;
-  fs.createReadStream(csvFile)
+    let count = 0;
+    fs.createReadStream(csvFile)
     .pipe(csv())
     .on("data" , () => {
       count += 1;
@@ -61,8 +61,6 @@ function getSortedDataByArea(csvFile, callback) {
     return callback(data);
     });
 }
-
-
 
 module.exports = {
   loadCSVFileData,
