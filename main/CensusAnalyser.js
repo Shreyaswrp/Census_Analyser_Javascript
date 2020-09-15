@@ -54,8 +54,18 @@ function GetSortOrderByPopulationDensity(csvFile,callback) {
   });
 }
 
+function GetSortOrderByArea(csvFile,callback) { 
+  csvToJson()
+  .fromFile(csvFile)
+  .then((data) => {
+  data.sort((a, b) => a.AreaInSqKm - b.AreaInSqKm)
+  return callback(data);
+  });
+}
+
 module.exports = {
-  loadCSVFileData,GetSortOrderByState,GetSortOrderByStateCode,GetSortOrderByPopulation,GetSortOrderByPopulationDensity
+  loadCSVFileData,GetSortOrderByState,GetSortOrderByStateCode,GetSortOrderByPopulation,
+  GetSortOrderByPopulationDensity,GetSortOrderByArea
 };
  
 
