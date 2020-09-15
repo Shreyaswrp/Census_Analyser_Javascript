@@ -47,8 +47,17 @@ describe("IndianStateCensusSorting", function () {
 describe("Indian State Code Sorting", function () {
   it("It sorts the state code data in JSON Format", function () {
     CensusAnalyserController.GetSortOrderByStateCode(INDIA_STATE_CODE_FILE, function (data) {
-        let result =data[data.length-1].StateCode
-        assert.equal(result, "WB");
+        let result =data[data.length-1].StateName
+        assert.equal(result, "West Bengal");
+    });
+  });
+});
+
+describe("Indian State Census Sorting", function () {
+  it("It sorts the state population data in JSON Format", function () {
+    CensusAnalyserController.GetSortOrderByPopulation(INDIA_STATE_CENSUS_FILE, function (data) {
+        let result =data[data.length-1].State
+        assert.equal(result, "Sikkim");
     });
   });
 });

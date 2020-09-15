@@ -31,13 +31,22 @@ function GetSortOrderByStateCode(csvFile,callback) {
   csvToJson()
   .fromFile(csvFile)
   .then((data) => {
-  stateData.sort((a, b) => a.StateCode - b.StateCode)
+  data.sort((a, b) => a.StateCode - b.StateCode)
   return callback(data);
   });
 } 
 
+function GetSortOrderByPopulation(csvFile,callback) { 
+  csvToJson()
+  .fromFile(csvFile)
+  .then((data) => {
+  data.sort((a, b) => a.Population - b.Population)
+  return callback(data);
+  });
+}
+
 module.exports = {
-  loadCSVFileData,GetSortOrderByState,GetSortOrderByStateCode
+  loadCSVFileData,GetSortOrderByState,GetSortOrderByStateCode,GetSortOrderByPopulation
 };
  
 
