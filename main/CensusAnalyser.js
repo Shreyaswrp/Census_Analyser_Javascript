@@ -45,8 +45,17 @@ function GetSortOrderByPopulation(csvFile,callback) {
   });
 }
 
+function GetSortOrderByPopulationDensity(csvFile,callback) { 
+  csvToJson()
+  .fromFile(csvFile)
+  .then((data) => {
+  data.sort((a, b) => a.PopulationDensity - b.PopulationDensity)
+  return callback(data);
+  });
+}
+
 module.exports = {
-  loadCSVFileData,GetSortOrderByState,GetSortOrderByStateCode,GetSortOrderByPopulation
+  loadCSVFileData,GetSortOrderByState,GetSortOrderByStateCode,GetSortOrderByPopulation,GetSortOrderByPopulationDensity
 };
  
 

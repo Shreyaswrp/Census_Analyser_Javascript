@@ -57,6 +57,15 @@ describe("Indian State Census Sorting", function () {
   it("It sorts the state population data in JSON Format", function () {
     CensusAnalyserController.GetSortOrderByPopulation(INDIA_STATE_CENSUS_FILE, function (data) {
         let result =data[data.length-1].State
+        assert.equal(result, "Uttar Pradesh");
+    });
+  });
+});
+
+describe("Indian State Census Sorting", function () {
+  it("It sorts the state population density data in JSON Format", function () {
+    CensusAnalyserController.GetSortOrderByPopulationDensity(INDIA_STATE_CENSUS_FILE, function (data) {
+        let result =data[data.length-1].State
         assert.equal(result, "Sikkim");
     });
   });
