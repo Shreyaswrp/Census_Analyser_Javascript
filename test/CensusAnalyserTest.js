@@ -1,52 +1,46 @@
 const assert = require("chai").assert;
-const CensusAnalyserController = require("../main/CensusAnalyser");
+const CensusAnalyser = require("../main/CensusAnalyser");
 const INDIA_STATE_CENSUS_FILE = "./resources/IndiaStateCensusData.csv";
 const INDIA_STATE_CODE_FILE = "./resources/IndiaStateCode.csv";
 const US_STATE_CENSUS_FILE = "./resources/USCensusData.csv";
 
+var obj = new CensusAnalyser();
 
-describe("It loads Indian State Census Data", function () {
-  it("It loads the number of records in Indian census file", function () {
-    CensusAnalyserController.loadCSVFileData(INDIA_STATE_CENSUS_FILE, function (
-      data
-    ) {
+describe("loadIndianStateCensusData", function () {
+  it("givenIndiaCensusFile_WhenExpectedIsCorrect_ShouldReturnEqual", function () {
+      obj.loadCSVFileData(INDIA_STATE_CENSUS_FILE, function (data) {
       assert.equal(data, 29);
     });
   });
 });
 
 describe("loadIndianStateCensusData", function () {
-  it("it loads Indian census data", function () {
-    CensusAnalyserController.loadCSVFileData(INDIA_STATE_CENSUS_FILE, function (
-      data
-    ) {
+  it("givenIndiaCensusFile_WhenExpectedIsIncorrect_ShouldReturnNotEqual", function () {
+      obj.loadCSVFileData(INDIA_STATE_CENSUS_FILE, function (data) {
       assert.notEqual(data, 30);
     });
   });
 });
 
-describe("It loads Indian State Code", function () {
-  it("It loads total records of Indian state dode data", function () {
-    CensusAnalyserController.loadCSVFileData(INDIA_STATE_CODE_FILE, function (
-      data
-    ) {
-      assert.equal(data, 37);
+describe("loadIndianStateCodeData", function () {
+  it("givenIndiaCodeFile_WhenExpectedIsCorrect_ShouldReturnEqual", function () {
+    obj.loadCSVFileData(INDIA_STATE_CODE_FILE, function (data ) {
+    assert.equal(data, 37);
     });
   });
 });
 
-describe("It loads Indian State Code Data", function () {
-  it("It returns total records of Indian code data", function () {
-    CensusAnalyserController.loadCSVFileData(INDIA_STATE_CODE_FILE, function (data) {
+describe("loadIndianStateCodeData", function () {
+  it("givenIndiaCodeFile_WhenExpectedIsIncorrect_ShouldReturnNotEqual", function () {
+      obj.loadCSVFileData(INDIA_STATE_CODE_FILE, function (data) {
       assert.notEqual(data, 40);
     });
   });
 });
 
-
-describe("IndianStateCensusSorting", function () {
-  it("It sorts the state data in alphabetic order", function () {
-    CensusAnalyserController.getSortedDataByState(INDIA_STATE_CENSUS_FILE,function (data) {
+describe("loadIndianStateCensusData", function () {
+  it("givenIndiaCensusFile_WhenSortedOnState_ShouldReturnCorrectStateInJSONFormat", function () {
+        obj.getSortedDataByState(INDIA_STATE_CENSUS_FILE,function (data) {
         let result = data[0].State;
         assert.equal(result, "Andhra Pradesh"); 
       }
@@ -54,20 +48,9 @@ describe("IndianStateCensusSorting", function () {
   });
 });
 
-
-describe("Indian State Code Sorting", function () {
-  it("It sorts the state code data in JSON Format", function () {
-    CensusAnalyserController.getSortedDataByStateCode(INDIA_STATE_CODE_FILE,function (data) {
-        let result = data[data.length - 1].StateCode;
-        assert.equal(result, "WB");
-      }
-    );
-  });
-});
-
-describe("Indian State Census Sorting", function () {
-  it("It sorts the state population data in JSON Format", function () {
-    CensusAnalyserController.getSortedDataByPopulation(INDIA_STATE_CENSUS_FILE,function (data) {
+describe("loadIndianStateCensusData", function () {
+  it("givenIndiaCensusFile_WhenSortedOnPopulation_ShouldReturnCorrectStateInJSONFormat", function () {
+        obj.getSortedDataByPopulation(INDIA_STATE_CENSUS_FILE,function (data) {
         let result = data[data.length - 1].State;
         assert.equal(result, "Uttar Pradesh");
       }
@@ -75,9 +58,9 @@ describe("Indian State Census Sorting", function () {
   });
 });
 
-describe("Indian State Census Sorting", function () {
-  it("It sorts the state population density data in JSON Format", function () {
-    CensusAnalyserController.getSortedDataByDensity(INDIA_STATE_CENSUS_FILE,function (data){
+describe("loadIndianStateCensusData", function () {
+  it("givenIndiaCensusFile_WhenSortedOnDensity_ShouldReturnCorrectStateInJSONFormat", function () {
+        obj.getSortedDataByDensity(INDIA_STATE_CENSUS_FILE,function (data){
         let result = data[data.length - 1].State;
         assert.equal(result, "Bihar");
       }
@@ -85,9 +68,9 @@ describe("Indian State Census Sorting", function () {
   });
 });
 
-describe("Indian State Census Sorting", function () {
-  it("It sorts the state area data in JSON Format", function () {
-    CensusAnalyserController.getSortedDataByArea(INDIA_STATE_CENSUS_FILE,function (data){
+describe("loadIndianStateCensusData", function () {
+  it("givenIndiaCensusFile_WhenSortedOnArea_ShouldReturnCorrectStateInJSONFormat", function () {
+        obj.getSortedDataByArea(INDIA_STATE_CENSUS_FILE,function (data){
         let result = data[data.length - 1].State;
         assert.equal(result, "Rajasthan");
       }
@@ -95,19 +78,25 @@ describe("Indian State Census Sorting", function () {
   });
 });
 
-describe("It loads US State Census Data", function () {
-  it("It loads the number of records in US census file", function () {
-    CensusAnalyserController.loadCSVFileData(US_STATE_CENSUS_FILE, function (
-      data
-    ) {
+describe("loadUSStateCensusData", function () {
+  it("givenUSCensusFile_WhenExpectedIsCorrect_ShouldReturnEqual", function () {
+      obj.loadCSVFileData(US_STATE_CENSUS_FILE, function (data) {
       assert.equal(data, 51);
     });
   });
 });
 
-describe("US State Census Sorting", function () {
-  it("It sorts the US state population data in JSON Format", function () {
-    CensusAnalyserController.getSortedDataByPopulation(US_STATE_CENSUS_FILE,function (data) {
+describe("loadUSStateCensusData", function () {
+  it("givenUSCensusFile_WhenExpectedIsIncorrect_ShouldReturnNotEqual", function () {
+      obj.loadCSVFileData(US_STATE_CENSUS_FILE, function (data) {
+      assert.notEqual(data, 60);
+    });
+  });
+});
+
+describe("loadUSStateCensusData", function () {
+  it("givenUSCensusFile_WhenSortedOnPopulation_ShouldReturnCorrectStateInJSONFormat", function () {
+        obj.getSortedDataByPopulation(US_STATE_CENSUS_FILE,function (data) {
         let result = data[data.length - 1].State;
         assert.equal(result, "California");
       }
@@ -115,9 +104,9 @@ describe("US State Census Sorting", function () {
   });
 });
 
-describe("US State Census Sorting", function () {
-  it("It sorts the  US state population density data in JSON Format", function () {
-    CensusAnalyserController.getSortedDataByDensity(US_STATE_CENSUS_FILE,function (data) {
+describe("loadUSStateCensusData", function () {
+  it("givenUSCensusFile_WhenSortedOnDensity_ShouldReturnCorrectStateInJSONFormat", function () {
+        obj.getSortedDataByDensity(US_STATE_CENSUS_FILE,function (data) {
         let result = data[data.length - 1].State;
         assert.equal(result, "Wyoming");
       }
@@ -125,12 +114,13 @@ describe("US State Census Sorting", function () {
   });
 });
 
-describe("US State Census Sorting", function () {
-  it("It sorts the  US state area data in JSON Format", function () {
-    CensusAnalyserController.getSortedDataByArea(US_STATE_CENSUS_FILE,function (data) {
+describe("loadUSStateCensusData", function () {
+  it("givenUSCensusFile_WhenSortedOnArea_ShouldReturnCorrectStateInJSONFormat", function () {
+        obj.getSortedDataByArea(US_STATE_CENSUS_FILE,function (data) {
         let result = data[data.length - 1].State;
         assert.equal(result, "Wyoming");
       }
     );
   });
 });
+

@@ -35,35 +35,35 @@ loadCSVFileData(csvFile, callback) {
 }
 
 getSortedDataByState(csvFile, callback) {
-    csvToJsonConversion(csvFile,function (data){
+    this.csvToJsonConversion(csvFile,function (data){
     data.sort((a, b) => a.State.localeCompare(b.State));
     return callback(data);
     });
 }
 
 getSortedDataByStateCode(csvFile, callback) {
-    csvToJsonConversion(csvFile,function (data){
+    this.csvToJsonConversion(csvFile,function (data){
     data.sort((a, b) => a.StateCode.localeCompare(b.StateCode));
     return callback(data);
     });
 }
 
 getSortedDataByPopulation(csvFile, callback) {
-    csvToJsonConversion(csvFile,function (data){
+    this.csvToJsonConversion(csvFile,function (data){
     data.sort((a, b) => a.Population - b.Population);
     return callback(data);
     });
 }
 
  getSortedDataByDensity(csvFile, callback) {
-    csvToJsonConversion(csvFile,function (data){
+    this.csvToJsonConversion(csvFile,function (data){
     data.sort((a, b) => a.DensityPerSqKm - b.DensityPerSqKm);
     return callback(data);
     });
 }
 
 getSortedDataByArea(csvFile, callback) {
-    csvToJsonConversion(csvFile,function (data){
+    this.csvToJsonConversion(csvFile,function (data){
     data.sort((a, b) => a.AreaInSqKm - b.AreaInSqKm);
     return callback(data);
     });
