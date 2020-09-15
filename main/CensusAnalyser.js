@@ -27,8 +27,17 @@ function GetSortOrderByState(csvFile,callback) {
       });
 } 
 
+function GetSortOrderByStateCode(csvFile,callback) { 
+  csvToJson()
+  .fromFile(csvFile)
+  .then((data) => {
+  stateData.sort((a, b) => a.StateCode - b.StateCode)
+  return callback(data);
+  });
+} 
+
 module.exports = {
-  loadCSVFileData,GetSortOrderByState
+  loadCSVFileData,GetSortOrderByState,GetSortOrderByStateCode
 };
  
 
