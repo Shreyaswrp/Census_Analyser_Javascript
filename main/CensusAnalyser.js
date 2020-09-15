@@ -4,7 +4,9 @@ const csvToJson = require("csvtojson");
 
 console.log ("Welcome to census analyser program");
 
-function csvToJsonConversion(csvFile,callback){
+class CensusAnalyser{
+
+csvToJsonConversion(csvFile,callback){
     var promise = new Promise(function(resolve, reject) {
     csvToJson()
     .fromFile(csvFile)
@@ -20,7 +22,7 @@ function csvToJsonConversion(csvFile,callback){
     });
 }
 
-function loadCSVFileData(csvFile, callback) {
+loadCSVFileData(csvFile, callback) {
     let count = 0;
     fs.createReadStream(csvFile)
     .pipe(csv())
@@ -32,47 +34,39 @@ function loadCSVFileData(csvFile, callback) {
     });
 }
 
-function getSortedDataByState(csvFile, callback) {
+getSortedDataByState(csvFile, callback) {
     csvToJsonConversion(csvFile,function (data){
     data.sort((a, b) => a.State.localeCompare(b.State));
     return callback(data);
     });
 }
 
-function getSortedDataByStateCode(csvFile, callback) {
+getSortedDataByStateCode(csvFile, callback) {
     csvToJsonConversion(csvFile,function (data){
     data.sort((a, b) => a.StateCode.localeCompare(b.StateCode));
     return callback(data);
     });
 }
 
-function getSortedDataByPopulation(csvFile, callback) {
+getSortedDataByPopulation(csvFile, callback) {
     csvToJsonConversion(csvFile,function (data){
     data.sort((a, b) => a.Population - b.Population);
     return callback(data);
     });
 }
 
-function getSortedDataByDensity(csvFile, callback) {
+ getSortedDataByDensity(csvFile, callback) {
     csvToJsonConversion(csvFile,function (data){
     data.sort((a, b) => a.DensityPerSqKm - b.DensityPerSqKm);
     return callback(data);
     });
 }
 
-function getSortedDataByArea(csvFile, callback) {
+getSortedDataByArea(csvFile, callback) {
     csvToJsonConversion(csvFile,function (data){
     data.sort((a, b) => a.AreaInSqKm - b.AreaInSqKm);
     return callback(data);
     });
 }
-
-module.exports = {
-  loadCSVFileData,
-  getSortedDataByState,
-  getSortedDataByStateCode,
-  getSortedDataByPopulation,
-  getSortedDataByDensity,
-  getSortedDataByArea,
-  csvToJsonConversion  
-};
+}
+module.exports = CensusAnalyser;
