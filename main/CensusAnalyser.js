@@ -5,11 +5,19 @@ const csvToJson = require("csvtojson");
 console.log ("Welcome to census analyser program");
 
 function csvToJsonConversion(csvFile,callback){
-  csvToJson()
-  .fromFile(csvFile)
-  .then((data) => {
-  return callback(data);
-  });  
+    var promise = new Promise(function(resolve, reject) {
+    csvToJson()
+    .fromFile(csvFile)
+    resolve("Conversion from csv to json is successful");
+    reject('Your Promise Rejected')
+    });
+    promise.
+    then(function () {
+    return callback(data);
+    }).
+    catch(function () {
+    console.log('There Some error has occured');
+    });
 }
 
 function loadCSVFileData(csvFile, callback) {
@@ -66,4 +74,5 @@ module.exports = {
   getSortedDataByPopulation,
   getSortedDataByDensity,
   getSortedDataByArea,
+  csvToJsonConversion  
 };
