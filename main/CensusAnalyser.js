@@ -1,5 +1,4 @@
-var msg = "Welcome to census analyser program";
-console.log(msg);
+console.log ("Welcome to census analyser program");
 
 const csv = require("csv-parser");
 const fs = require("fs");
@@ -15,29 +14,29 @@ function loadCSVFileData(csvFile, callback) {
     .on("end", () => {
       console.log("Total count: " + count);
       return callback(count);
-    });
+      });
 }
 
-function GetSortOrderByState(csvFile, callback) {
-  csvToJson()
-    .fromFile(csvFile)
-    .then((stateData) => {
-      stateData.sort((a, b) => a.State - b.State);
-      return callback(stateData);
-    });
-}
-
-function GetSortOrderByStateCode(csvFile, callback) {
+function getSortedDataByState(csvFile, callback) {
   csvToJson()
     .fromFile(csvFile)
     .then((data) => {
-      data.sort((a, b) => a.StateCode - b.StateCode);
+      data.sort((a, b) => a.State.localeCompare(b.State));
       return callback(data);
     });
 }
 
-function GetSortOrderByPopulation(csvFile, callback) {
+function getSortedDataByStateCode(csvFile, callback) {
   csvToJson()
+    .fromFile(csvFile)
+    .then((data) => {
+      data.sort((a, b) => a.StateCode.localeCompare(b.StateCode));
+      return callback(data);
+    });
+}
+
+function getSortedDataByPopulation(csvFile, callback) {
+    csvToJson()
     .fromFile(csvFile)
     .then((data) => {
       data.sort((a, b) => a.Population - b.Population);
@@ -45,16 +44,16 @@ function GetSortOrderByPopulation(csvFile, callback) {
     });
 }
 
-function GetSortOrderByPopulationDensity(csvFile, callback) {
+function getSortedDataByDensity(csvFile, callback) {
   csvToJson()
     .fromFile(csvFile)
     .then((data) => {
-      data.sort((a, b) => a.PopulationDensity - b.PopulationDensity);
+      data.sort((a, b) => a.DensityPerSqKm - b.DensityPerSqKm);
       return callback(data);
     });
 }
 
-function GetSortOrderByArea(csvFile, callback) {
+function getSortedDataByArea(csvFile, callback) {
   csvToJson()
     .fromFile(csvFile)
     .then((data) => {
@@ -63,11 +62,13 @@ function GetSortOrderByArea(csvFile, callback) {
     });
 }
 
+
+
 module.exports = {
   loadCSVFileData,
-  GetSortOrderByState,
-  GetSortOrderByStateCode,
-  GetSortOrderByPopulation,
-  GetSortOrderByPopulationDensity,
-  GetSortOrderByArea,
+  getSortedDataByState,
+  getSortedDataByStateCode,
+  getSortedDataByPopulation,
+  getSortedDataByDensity,
+  getSortedDataByArea,
 };

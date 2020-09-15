@@ -4,6 +4,7 @@ const INDIA_STATE_CENSUS_FILE = "./resources/IndiaStateCensusData.csv";
 const INDIA_STATE_CODE_FILE = "./resources/IndiaStateCode.csv";
 const US_STATE_CENSUS_FILE = "./resources/USCensusData.csv";
 
+
 describe("It loads Indian State Census Data", function () {
   it("It loads the number of records in Indian census file", function () {
     CensusAnalyserController.loadCSVFileData(INDIA_STATE_CENSUS_FILE, function (
@@ -36,31 +37,27 @@ describe("It loads Indian State Code", function () {
 
 describe("It loads Indian State Code Data", function () {
   it("It returns total records of Indian code data", function () {
-    CensusAnalyserController.loadCSVFileData(INDIA_STATE_CODE_FILE, function (
-      data
-    ) {
+    CensusAnalyserController.loadCSVFileData(INDIA_STATE_CODE_FILE, function (data) {
       assert.notEqual(data, 40);
     });
   });
 });
 
+
 describe("IndianStateCensusSorting", function () {
   it("It sorts the state data in alphabetic order", function () {
-    CensusAnalyserController.GetSortOrderByState(
-      INDIA_STATE_CENSUS_FILE,
-      function (data) {
-        let result = data[data.length - 1].State;
-        assert.equal(result, "West Bengal");
+    CensusAnalyserController.getSortedDataByState(INDIA_STATE_CENSUS_FILE,function (data) {
+        let result = data[0].State;
+        assert.equal(result, "Andhra Pradesh"); 
       }
     );
   });
 });
 
+
 describe("Indian State Code Sorting", function () {
   it("It sorts the state code data in JSON Format", function () {
-    CensusAnalyserController.GetSortOrderByStateCode(
-      INDIA_STATE_CODE_FILE,
-      function (data) {
+    CensusAnalyserController.getSortedDataByStateCode(INDIA_STATE_CODE_FILE,function (data) {
         let result = data[data.length - 1].StateCode;
         assert.equal(result, "WB");
       }
@@ -70,9 +67,7 @@ describe("Indian State Code Sorting", function () {
 
 describe("Indian State Census Sorting", function () {
   it("It sorts the state population data in JSON Format", function () {
-    CensusAnalyserController.GetSortOrderByPopulation(
-      INDIA_STATE_CENSUS_FILE,
-      function (data) {
+    CensusAnalyserController.getSortedDataByPopulation(INDIA_STATE_CENSUS_FILE,function (data) {
         let result = data[data.length - 1].State;
         assert.equal(result, "Uttar Pradesh");
       }
@@ -82,11 +77,9 @@ describe("Indian State Census Sorting", function () {
 
 describe("Indian State Census Sorting", function () {
   it("It sorts the state population density data in JSON Format", function () {
-    CensusAnalyserController.GetSortOrderByPopulationDensity(
-      INDIA_STATE_CENSUS_FILE,
-      function (data) {
+    CensusAnalyserController.getSortedDataByDensity(INDIA_STATE_CENSUS_FILE,function (data){
         let result = data[data.length - 1].State;
-        assert.equal(result, "Sikkim");
+        assert.equal(result, "Bihar");
       }
     );
   });
@@ -94,9 +87,7 @@ describe("Indian State Census Sorting", function () {
 
 describe("Indian State Census Sorting", function () {
   it("It sorts the state area data in JSON Format", function () {
-    CensusAnalyserController.GetSortOrderByArea(
-      INDIA_STATE_CENSUS_FILE,
-      function (data) {
+    CensusAnalyserController.getSortedDataByArea(INDIA_STATE_CENSUS_FILE,function (data){
         let result = data[data.length - 1].State;
         assert.equal(result, "Rajasthan");
       }
@@ -116,9 +107,7 @@ describe("It loads US State Census Data", function () {
 
 describe("US State Census Sorting", function () {
   it("It sorts the US state population data in JSON Format", function () {
-    CensusAnalyserController.GetSortOrderByPopulation(
-      US_STATE_CENSUS_FILE,
-      function (data) {
+    CensusAnalyserController.getSortedDataByPopulation(US_STATE_CENSUS_FILE,function (data) {
         let result = data[data.length - 1].State;
         assert.equal(result, "California");
       }
@@ -128,9 +117,17 @@ describe("US State Census Sorting", function () {
 
 describe("US State Census Sorting", function () {
   it("It sorts the  US state population density data in JSON Format", function () {
-    CensusAnalyserController.GetSortOrderByPopulationDensity(
-      US_STATE_CENSUS_FILE,
-      function (data) {
+    CensusAnalyserController.getSortedDataByDensity(US_STATE_CENSUS_FILE,function (data) {
+        let result = data[data.length - 1].State;
+        assert.equal(result, "Wyoming");
+      }
+    );
+  });
+});
+
+describe("US State Census Sorting", function () {
+  it("It sorts the  US state area data in JSON Format", function () {
+    CensusAnalyserController.getSortedDataByArea(US_STATE_CENSUS_FILE,function (data) {
         let result = data[data.length - 1].State;
         assert.equal(result, "Wyoming");
       }
