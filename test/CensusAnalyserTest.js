@@ -8,7 +8,8 @@ var obj = new CensusAnalyser();
 
 describe("loadIndianStateCensusData", function () {
   it("givenIndiaCensusFile_WhenExpectedIsCorrect_ShouldReturnEqual", function () {
-      obj.loadCSVFileData(INDIA_STATE_CENSUS_FILE, function (data) {
+      obj.loadCSVFileData(INDIA_STATE_CENSUS_FILE, function (err,data) {
+      if (err) return console.error(err);
       assert.equal(data, 29);
     });
   });
@@ -16,7 +17,8 @@ describe("loadIndianStateCensusData", function () {
 
 describe("loadIndianStateCensusData", function () {
   it("givenIndiaCensusFile_WhenExpectedIsIncorrect_ShouldReturnNotEqual", function () {
-      obj.loadCSVFileData(INDIA_STATE_CENSUS_FILE, function (data) {
+      obj.loadCSVFileData(INDIA_STATE_CENSUS_FILE, function (err,data) {
+      if (err) return console.error(err);
       assert.notEqual(data, 30);
     });
   });
@@ -24,7 +26,8 @@ describe("loadIndianStateCensusData", function () {
 
 describe("loadIndianStateCodeData", function () {
   it("givenIndiaCodeFile_WhenExpectedIsCorrect_ShouldReturnEqual", function () {
-    obj.loadCSVFileData(INDIA_STATE_CODE_FILE, function (data ) {
+    obj.loadCSVFileData(INDIA_STATE_CODE_FILE, function (err,data ) {
+    if (err) return console.error(err);
     assert.equal(data, 37);
     });
   });
@@ -32,7 +35,8 @@ describe("loadIndianStateCodeData", function () {
 
 describe("loadIndianStateCodeData", function () {
   it("givenIndiaCodeFile_WhenExpectedIsIncorrect_ShouldReturnNotEqual", function () {
-      obj.loadCSVFileData(INDIA_STATE_CODE_FILE, function (data) {
+      obj.loadCSVFileData(INDIA_STATE_CODE_FILE, function (err,data) {
+      if (err) return console.error(err); 
       assert.notEqual(data, 40);
     });
   });
@@ -40,7 +44,8 @@ describe("loadIndianStateCodeData", function () {
 
 describe("loadIndianStateCensusData", function () {
   it("givenIndiaCensusFile_WhenSortedOnState_ShouldReturnCorrectStateInJSONFormat", function () {
-        obj.getSortedDataByState(INDIA_STATE_CENSUS_FILE,function (data) {
+        obj.getSortedDataByState(INDIA_STATE_CENSUS_FILE,function (err,data) {
+        if (err) return console.error(err);
         let result = data[0].State;
         assert.equal(result, "Andhra Pradesh"); 
       }
@@ -50,7 +55,8 @@ describe("loadIndianStateCensusData", function () {
 
 describe("loadIndianStateCensusData", function () {
   it("givenIndiaCensusFile_WhenSortedOnPopulation_ShouldReturnCorrectStateInJSONFormat", function () {
-        obj.getSortedDataByPopulation(INDIA_STATE_CENSUS_FILE,function (data) {
+        obj.getSortedDataByPopulation(INDIA_STATE_CENSUS_FILE,function (err,data) {
+        if (err) return console.error(err);
         let result = data[data.length - 1].State;
         assert.equal(result, "Uttar Pradesh");
       }
@@ -60,7 +66,8 @@ describe("loadIndianStateCensusData", function () {
 
 describe("loadIndianStateCensusData", function () {
   it("givenIndiaCensusFile_WhenSortedOnDensity_ShouldReturnCorrectStateInJSONFormat", function () {
-        obj.getSortedDataByDensity(INDIA_STATE_CENSUS_FILE,function (data){
+        obj.getSortedDataByDensity(INDIA_STATE_CENSUS_FILE,function (err,data){
+        if (err) return console.error(err);
         let result = data[data.length - 1].State;
         assert.equal(result, "Bihar");
       }
@@ -70,7 +77,8 @@ describe("loadIndianStateCensusData", function () {
 
 describe("loadIndianStateCensusData", function () {
   it("givenIndiaCensusFile_WhenSortedOnArea_ShouldReturnCorrectStateInJSONFormat", function () {
-        obj.getSortedDataByArea(INDIA_STATE_CENSUS_FILE,function (data){
+        obj.getSortedDataByArea(INDIA_STATE_CENSUS_FILE,function (err,data){
+        if (err) return console.error(err);
         let result = data[data.length - 1].State;
         assert.equal(result, "Rajasthan");
       }
@@ -80,7 +88,8 @@ describe("loadIndianStateCensusData", function () {
 
 describe("loadUSStateCensusData", function () {
   it("givenUSCensusFile_WhenExpectedIsCorrect_ShouldReturnEqual", function () {
-      obj.loadCSVFileData(US_STATE_CENSUS_FILE, function (data) {
+      obj.loadCSVFileData(US_STATE_CENSUS_FILE, function (err,data) {
+      if (err) return console.error(err);
       assert.equal(data, 51);
     });
   });
@@ -88,7 +97,8 @@ describe("loadUSStateCensusData", function () {
 
 describe("loadUSStateCensusData", function () {
   it("givenUSCensusFile_WhenExpectedIsIncorrect_ShouldReturnNotEqual", function () {
-      obj.loadCSVFileData(US_STATE_CENSUS_FILE, function (data) {
+      obj.loadCSVFileData(US_STATE_CENSUS_FILE, function (err,data) {
+      if (err) return console.error(err);
       assert.notEqual(data, 60);
     });
   });
@@ -96,7 +106,8 @@ describe("loadUSStateCensusData", function () {
 
 describe("loadUSStateCensusData", function () {
   it("givenUSCensusFile_WhenSortedOnPopulation_ShouldReturnCorrectStateInJSONFormat", function () {
-        obj.getSortedDataByPopulation(US_STATE_CENSUS_FILE,function (data) {
+        obj.getSortedDataByPopulation(US_STATE_CENSUS_FILE,function (err,data) {
+        if (err) return console.error(err);
         let result = data[data.length - 1].State;
         assert.equal(result, "California");
       }
@@ -106,7 +117,8 @@ describe("loadUSStateCensusData", function () {
 
 describe("loadUSStateCensusData", function () {
   it("givenUSCensusFile_WhenSortedOnDensity_ShouldReturnCorrectStateInJSONFormat", function () {
-        obj.getSortedDataByDensity(US_STATE_CENSUS_FILE,function (data) {
+        obj.getSortedDataByDensity(US_STATE_CENSUS_FILE,function (err,data) {
+        if (err) return console.error(err);
         let result = data[data.length - 1].State;
         assert.equal(result, "Wyoming");
       }
@@ -116,7 +128,8 @@ describe("loadUSStateCensusData", function () {
 
 describe("loadUSStateCensusData", function () {
   it("givenUSCensusFile_WhenSortedOnArea_ShouldReturnCorrectStateInJSONFormat", function () {
-        obj.getSortedDataByArea(US_STATE_CENSUS_FILE,function (data) {
+        obj.getSortedDataByArea(US_STATE_CENSUS_FILE,function (err,data) {
+        if (err) return console.error(err);
         let result = data[data.length - 1].State;
         assert.equal(result, "Wyoming");
       }

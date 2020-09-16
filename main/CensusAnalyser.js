@@ -23,6 +23,7 @@ csvToJsonConversion(csvFile,callback){
 }
 
 loadCSVFileData(csvFile, callback) {
+    try{
     let count = 0;
     fs.createReadStream(csvFile)
     .pipe(csv())
@@ -32,41 +33,53 @@ loadCSVFileData(csvFile, callback) {
     .on("end", () => {
       return callback(count);
     });
+    }catch(err){
+        return callback(err);
+    }
 }
 
 getSortedDataByState(csvFile, callback) {
+    try{
     this.csvToJsonConversion(csvFile,function (data){
     data.sort((a, b) => a.State.localeCompare(b.State));
     return callback(data);
     });
-}
-
-getSortedDataByStateCode(csvFile, callback) {
-    this.csvToJsonConversion(csvFile,function (data){
-    data.sort((a, b) => a.StateCode.localeCompare(b.StateCode));
-    return callback(data);
-    });
+    }catch(err){
+    return callback(err);
+    }
 }
 
 getSortedDataByPopulation(csvFile, callback) {
+    try{
     this.csvToJsonConversion(csvFile,function (data){
     data.sort((a, b) => a.Population - b.Population);
     return callback(data);
     });
+    }catch(err){
+        return callback(err);
+    }
 }
 
- getSortedDataByDensity(csvFile, callback) {
+getSortedDataByDensity(csvFile, callback) {
+    try{
     this.csvToJsonConversion(csvFile,function (data){
     data.sort((a, b) => a.DensityPerSqKm - b.DensityPerSqKm);
     return callback(data);
     });
+    }catch(err){
+        return callback(err);
+    }
 }
 
 getSortedDataByArea(csvFile, callback) {
+    try{
     this.csvToJsonConversion(csvFile,function (data){
     data.sort((a, b) => a.AreaInSqKm - b.AreaInSqKm);
     return callback(data);
     });
+    }catch(err){
+        return callback(err);
+    }
 }
 }
 module.exports = CensusAnalyser;
