@@ -7,129 +7,138 @@ const US_STATE_CENSUS_FILE = "./resources/USCensusData.csv";
 var obj = new CensusAnalyser();
 
 describe("loadIndianStateCensusData", function () {
-  it("givenIndiaCensusFile_WhenExpectedIsCorrect_ShouldReturnEqual", function () {
+    it("givenIndiaCensusFile_WhenExpectedIsCorrect_ShouldReturnEqual", function () {
       obj.loadCSVFileData(INDIA_STATE_CENSUS_FILE, function (err,data) {
-      if (err) return console.error(err);
-      assert.equal(data, 29);
+      if (err) {
+          return loadCSVFileData(INDIA_STATE_CENSUS_FILE, callback);
+      }
+      assert.equal(data.length, 29);
+      });
     });
-  });
-});
-
-describe("loadIndianStateCensusData", function () {
-  it("givenIndiaCensusFile_WhenExpectedIsIncorrect_ShouldReturnNotEqual", function () {
+    
+    it("givenIndiaCensusFile_WhenExpectedIsIncorrect_ShouldReturnNotEqual", function () {
       obj.loadCSVFileData(INDIA_STATE_CENSUS_FILE, function (err,data) {
-      if (err) return console.error(err);
+      if (err) {
+          return loadCSVFileData(INDIA_STATE_CENSUS_FILE, callback);
+      }
       assert.notEqual(data, 30);
+      });
     });
-  });
+
+    it("givenIndiaCensusFile_WhenSortedOnState_ShouldReturnCorrectStateInJSONFormat", function () {
+      obj.loadCSVFileData(INDIA_STATE_CENSUS_FILE,function (err,data) {
+      if (err) {
+          return loadCSVFileData(INDIA_STATE_CENSUS_FILE, callback);
+      }
+      obj.sortData(data,obj.fileComparators.compareState);
+      let result = data[0].State;
+      assert.equal(result, "Andhra Pradesh"); 
+      });
+    });
+
+    it("givenIndiaCensusFile_WhenSortedOnPopulation_ShouldReturnCorrectStateInJSONFormat", function () {
+      obj.loadCSVFileData(INDIA_STATE_CENSUS_FILE,function (err,data) {
+      if (err) {
+          return loadCSVFileData(INDIA_STATE_CENSUS_FILE, callback);
+      }
+      obj.sortData(data,obj.fileComparators.comparePopulation);
+      let result = data[data.length - 1].State;
+      assert.equal(result, "Uttar Pradesh");
+      });
+    });
+
+    it("givenIndiaCensusFile_WhenSortedOnDensity_ShouldReturnCorrectStateInJSONFormat", function () {
+      obj.loadCSVFileData(INDIA_STATE_CENSUS_FILE,function (err,data){
+      if (err) {
+          return loadCSVFileData(INDIA_STATE_CENSUS_FILE, callback);
+      }
+      obj.sortData(data,obj.fileComparators.compareDensity);
+      let result = data[data.length - 1].State;
+      assert.equal(result, "Bihar");
+      });
+    });
+
+    it("givenIndiaCensusFile_WhenSortedOnArea_ShouldReturnCorrectStateInJSONFormat", function () {
+      obj.loadCSVFileData(INDIA_STATE_CENSUS_FILE,function (err,data){
+      if (err) {
+          return loadCSVFileData(INDIA_STATE_CENSUS_FILE, callback);
+      }
+      obj.sortData(data,obj.fileComparators.compareArea);
+      let result = data[data.length - 1].State;
+      assert.equal(result, "Rajasthan");
+      });
+    });
 });
 
 describe("loadIndianStateCodeData", function () {
   it("givenIndiaCodeFile_WhenExpectedIsCorrect_ShouldReturnEqual", function () {
     obj.loadCSVFileData(INDIA_STATE_CODE_FILE, function (err,data ) {
-    if (err) return console.error(err);
-    assert.equal(data, 37);
+    if (err) {
+        return loadCSVFileData(INDIA_STATE_CODE_FILE, callback);
+    }
+    assert.equal(data.length, 37);
     });
   });
-});
 
-describe("loadIndianStateCodeData", function () {
   it("givenIndiaCodeFile_WhenExpectedIsIncorrect_ShouldReturnNotEqual", function () {
-      obj.loadCSVFileData(INDIA_STATE_CODE_FILE, function (err,data) {
-      if (err) return console.error(err); 
-      assert.notEqual(data, 40);
+    obj.loadCSVFileData(INDIA_STATE_CODE_FILE, function (err,data) {
+    if (err) {
+        return loadCSVFileData(INDIA_STATE_CODE_FILE, callback);
+    } 
+    assert.notEqual(data.length, 40);
     });
   });
-});
-
-describe("loadIndianStateCensusData", function () {
-  it("givenIndiaCensusFile_WhenSortedOnState_ShouldReturnCorrectStateInJSONFormat", function () {
-        obj.getSortedDataByState(INDIA_STATE_CENSUS_FILE,function (err,data) {
-        if (err) return console.error(err);
-        let result = data[0].State;
-        assert.equal(result, "Andhra Pradesh"); 
-      }
-    );
   });
-});
-
-describe("loadIndianStateCensusData", function () {
-  it("givenIndiaCensusFile_WhenSortedOnPopulation_ShouldReturnCorrectStateInJSONFormat", function () {
-        obj.getSortedDataByPopulation(INDIA_STATE_CENSUS_FILE,function (err,data) {
-        if (err) return console.error(err);
-        let result = data[data.length - 1].State;
-        assert.equal(result, "Uttar Pradesh");
-      }
-    );
-  });
-});
-
-describe("loadIndianStateCensusData", function () {
-  it("givenIndiaCensusFile_WhenSortedOnDensity_ShouldReturnCorrectStateInJSONFormat", function () {
-        obj.getSortedDataByDensity(INDIA_STATE_CENSUS_FILE,function (err,data){
-        if (err) return console.error(err);
-        let result = data[data.length - 1].State;
-        assert.equal(result, "Bihar");
-      }
-    );
-  });
-});
-
-describe("loadIndianStateCensusData", function () {
-  it("givenIndiaCensusFile_WhenSortedOnArea_ShouldReturnCorrectStateInJSONFormat", function () {
-        obj.getSortedDataByArea(INDIA_STATE_CENSUS_FILE,function (err,data){
-        if (err) return console.error(err);
-        let result = data[data.length - 1].State;
-        assert.equal(result, "Rajasthan");
-      }
-    );
-  });
-});
 
 describe("loadUSStateCensusData", function () {
   it("givenUSCensusFile_WhenExpectedIsCorrect_ShouldReturnEqual", function () {
       obj.loadCSVFileData(US_STATE_CENSUS_FILE, function (err,data) {
-      if (err) return console.error(err);
-      assert.equal(data, 51);
+      if (err) {
+          return loadCSVFileData(US_STATE_CENSUS_FILE, callback);
+      }
+      assert.equal(data.length, 51);
     });
   });
-});
 
-describe("loadUSStateCensusData", function () {
   it("givenUSCensusFile_WhenExpectedIsIncorrect_ShouldReturnNotEqual", function () {
       obj.loadCSVFileData(US_STATE_CENSUS_FILE, function (err,data) {
-      if (err) return console.error(err);
-      assert.notEqual(data, 60);
+      if (err) {
+          return loadCSVFileData(US_STATE_CENSUS_FILE, callback);
+      }
+      assert.notEqual(data.length, 60);
     });
   });
-});
 
-describe("loadUSStateCensusData", function () {
   it("givenUSCensusFile_WhenSortedOnPopulation_ShouldReturnCorrectStateInJSONFormat", function () {
-        obj.getSortedDataByPopulation(US_STATE_CENSUS_FILE,function (err,data) {
-        if (err) return console.error(err);
+        obj.loadCSVFileData(US_STATE_CENSUS_FILE,function (err,data) {
+        if (err) {
+            return loadCSVFileData(US_STATE_CENSUS_FILE, callback);
+        }
+        obj.sortData(data,obj.fileComparators.comparePopulation);
         let result = data[data.length - 1].State;
         assert.equal(result, "California");
       }
     );
   });
-});
 
-describe("loadUSStateCensusData", function () {
   it("givenUSCensusFile_WhenSortedOnDensity_ShouldReturnCorrectStateInJSONFormat", function () {
-        obj.getSortedDataByDensity(US_STATE_CENSUS_FILE,function (err,data) {
-        if (err) return console.error(err);
+        obj.loadCSVFileData(US_STATE_CENSUS_FILE,function (err,data) {
+        if (err) {
+            return loadCSVFileData(US_STATE_CENSUS_FILE, callback);
+        }
+        obj.sortData(data,obj.fileComparators.compareUSPopulationDensity);
         let result = data[data.length - 1].State;
         assert.equal(result, "Wyoming");
       }
     );
   });
-});
 
-describe("loadUSStateCensusData", function () {
   it("givenUSCensusFile_WhenSortedOnArea_ShouldReturnCorrectStateInJSONFormat", function () {
-        obj.getSortedDataByArea(US_STATE_CENSUS_FILE,function (err,data) {
-        if (err) return console.error(err);
+        obj.loadCSVFileData(US_STATE_CENSUS_FILE,function (err,data) {
+        if (err) {
+            return loadCSVFileData(US_STATE_CENSUS_FILE, callback);
+        }
+        obj.sortData(data,obj.fileComparators.compareUSLandArea);
         let result = data[data.length - 1].State;
         assert.equal(result, "Wyoming");
       }

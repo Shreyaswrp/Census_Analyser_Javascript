@@ -27,18 +27,16 @@
   */
     const fs = require("fs");
 
-
 /**
   * @description Class CensusAnalyser
   * @class CensusAnalyser
   */
 class CensusAnalyser{
-
-/**
-  * Load the data from the provided file 
-  * @param {*} csvFile
-  * @returns callback with the data in an array in JSON format
-  */
+    /**
+    * Load the data from the provided file 
+    * @param {*} csvFile
+    * @returns callback with the data in an array in JSON format
+    */
     loadCSVFileData = (csvFile, callback) => {
     try{
     var resultArray = [];
