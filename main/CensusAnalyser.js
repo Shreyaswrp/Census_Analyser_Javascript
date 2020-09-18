@@ -1,85 +1,81 @@
-const csv = require("csv-parser");
-const fs = require("fs");
-const csvToJson = require("csvtojson");
+/*************************************************************
+ *
+ * Execution       : default node cmd> node CensusAnalyser.js
+ * Purpose         : Analayze India & US Census Data
+ *
+ * @description    : Analayze India & US Census Data from csvfile
+ *                   and sort data by state, population,
+ *                   population density, TotalArea,...etc
+ *                   to compute new stats accordingly.
+ *
+ * @file           : CensusAnalyser.js
+ * @overview       : Analayze India & US Census Data
+ * @module         : CensusAnalyser
+ * @version        : 1.0
+ * @since          : 16/11/2020
+ *
+ * **********************************************************/
 
-console.log ("Welcome to census analyser program");
+/**
+  * @description constant variable is declared to store csv-parse module
+  * @const csv
+  */
+    const csv = require("csv-parser");
+/**
+  * @description constant variable is declared to store fs module
+  * @const fs
+  */
+    const fs = require("fs");
 
+
+/**
+  * @description Class CensusAnalyser
+  * @class CensusAnalyser
+  */
 class CensusAnalyser{
 
-csvToJsonConversion(csvFile,callback){
-    var promise = new Promise(function(resolve, reject) {
-    csvToJson()
-    .fromFile(csvFile)
-    resolve("Conversion from csv to json is successful");
-    reject('Your Promise Rejected')
-    });
-    promise.
-    then(function () {
-    return callback(data);
-    }).
-    catch(function () {
-    console.log('There Some error has occured');
-    });
-}
-
-loadCSVFileData(csvFile, callback) {
+/**
+  * Load the data from the provided file 
+  * @param {*} csvFile
+  * @returns callback with the data in an array in JSON format
+  */
+    loadCSVFileData = (csvFile, callback) => {
     try{
-    let count = 0;
+    var resultArray = [];
     fs.createReadStream(csvFile)
     .pipe(csv())
-    .on("data" , () => {
-      count += 1;
+    .on("data" , (row) => {
+      resultArray.push(row);
     })
-    .on("end", () => {
-      return callback(count);
+    .on("end",  () => {
+      return callback(null,resultArray);
     });
-    }catch(err){
-        return callback(err);
+    }catch(error){
+        return callback(error,null);
     }
-}
+    };
 
-getSortedDataByState(csvFile, callback) {
-    try{
-    this.csvToJsonConversion(csvFile,function (data){
-    data.sort((a, b) => a.State.localeCompare(b.State));
-    return callback(data);
-    });
-    }catch(err){
-    return callback(err);
-    }
-}
+    /**
+      * Take data array and a field to compare to compare 
+      * @param {*} dataArray, comparatorField
+      * @returns callback with the data in an array in JSON format
+      */
+    sortData = (dataArray, comparatorField) => {
+        dataArray.sort(comparatorField);
+    };
 
-getSortedDataByPopulation(csvFile, callback) {
-    try{
-    this.csvToJsonConversion(csvFile,function (data){
-    data.sort((a, b) => a.Population - b.Population);
-    return callback(data);
-    });
-    }catch(err){
-        return callback(err);
-    }
-}
-
-getSortedDataByDensity(csvFile, callback) {
-    try{
-    this.csvToJsonConversion(csvFile,function (data){
-    data.sort((a, b) => a.DensityPerSqKm - b.DensityPerSqKm);
-    return callback(data);
-    });
-    }catch(err){
-        return callback(err);
-    }
-}
-
-getSortedDataByArea(csvFile, callback) {
-    try{
-    this.csvToJsonConversion(csvFile,function (data){
-    data.sort((a, b) => a.AreaInSqKm - b.AreaInSqKm);
-    return callback(data);
-    });
-    }catch(err){
-        return callback(err);
-    }
-}
+    /**
+      * @description Declared variable to sort csv file by different fields
+      * @var fileComparators
+      */
+    fileComparators = {
+        compareState: (a, b) => a.State.localeCompare(b.State),
+        comparePopulation: (a, b) => a.Population - b.Population,
+        compareDensity: (a, b) => a.DensityPerSqKm - b.DensityPerSqKm,
+        compareArea: (a, b) => a.AreaInSqKm - b.AreaInSqKm,
+        compareUSPopulationDensity: (a, b) =>
+          a.Populationaensity - b.PopulationDensity,
+        compareUSLandArea: (a, b) => b.Totalarea - a.Totalarea,
+    };
 }
 module.exports = CensusAnalyser;
